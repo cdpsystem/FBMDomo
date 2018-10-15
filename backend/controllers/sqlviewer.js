@@ -7,6 +7,11 @@ let SkipTableModel = require('../models/skiptable');
 
 
 let controller = {
+
+	sqlInfo:(req,res)=>{
+		console.log(res.body);
+	}
+
 }
 
 module.exports = controller;

@@ -10,6 +10,7 @@ let controller = {
 
 	sqlInfo:(req,res)=>{
 		console.log(res.body);
+		return res.status(200).send({message: "sqlInfo Recibido"});
 	}
 
 }

@@ -7,6 +7,7 @@ let ServerController = require('../controllers/server');
 let BackupController = require('../controllers/backup');
 let SkiptablesController = require('../controllers/skiptable');
 let FBMDomoController = require('../controllers/fbmdomo');
+let SQLInfoController = require('../controllers/sqlviewer');
 
 //cronfile
 // let cron = require('../controllers/cron'); 
@@ -45,5 +46,8 @@ router.get('/localversion',FBMDomoController.getLocalVersion);
 router.post('/fbmdomoinstall',FBMDomoController.install);
 router.post('/uninstall',FBMDomoController.uninstall);
 
+
+//sqlviewer
+router.post('/sqlviewer/sqlinfo',SQLInfoController.sqlInfo);
 
 module.exports = router;

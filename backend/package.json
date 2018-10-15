@@ -17,6 +17,7 @@
     "ftp": "^0.3.10",
     "moment": "^2.22.2",
     "mongoose": "^5.2.17",
+    "mysql": "^2.16.0",
     "node-cron": "^2.0.1",
     "node-ssh": "^5.1.2",
     "recursive-readdir": "^2.2.2",

@@ -3,6 +3,9 @@
 ## Descripcion
 Sistema de control de servidores basados en linux
 
+## Advertencia
+Esta aplicacion no esta pensada para un uso fuera del que fue pensado, ademas de no estar lista para estar en un servidor expuesto a WAN
+
 ## Dependencias
 1. Angular 6
 2. Node.js

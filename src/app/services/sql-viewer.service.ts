@@ -19,7 +19,7 @@ export class SqlViewerService {
 	public sqlInfo(servidor):Observable<any>{
 		let params = JSON.stringify(servidor);
 		let headers = new HttpHeaders()
-			.set('Content-Type','application/json')	
+			.set('Content-Type','application/json');
 		return this._http.post(this.url+'/api/sqlviewer/sqlinfo',params,{headers : headers});
 	}
 

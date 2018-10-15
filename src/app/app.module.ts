@@ -16,6 +16,7 @@ import { LoadScreenComponent } from './load-screen/load-screen.component';
 import { EditarServidorComponent } from './editar-servidor/editar-servidor.component';
 import { TestComponent } from './test/test.component';
 import { InfoScreenComponent } from './info-screen/info-screen.component';
+import { SqlViewerComponent } from './sql-viewer/sql-viewer.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { InfoScreenComponent } from './info-screen/info-screen.component';
     EditarServidorComponent,
     TestComponent,
     InfoScreenComponent,
+    SqlViewerComponent,
   ],
   imports: [
     BrowserModule,

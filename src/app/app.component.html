@@ -1,0 +1,29 @@
+<div class="container-fluid h-100">
+	<div class="row h-100">
+		<home-menu style="width:100%"></home-menu>
+		<div class="col-md-11 col-xl-10 offset-md-1 offset-xl-2 contenido-container h-100">
+			<h1 class="app-title">{{config.title}}</h1>
+			<hr>
+			<router-outlet></router-outlet>
+		</div>
+	</div>
+</div>
+
+<!-- 
+
+<div [ngStyle]=
+"{
+	'background-color' : config.bgColor,
+	'color' : config.txtColor
+}">
+  <h1 style="text-align: center">{{config.title}} - {{config.version}}</h1>
+  <p>Página principal de la aplicacion</p>
+  <nav>
+  	<a [routerLink]="['/']">Home</a>
+  	<a [routerLink]="['/server']">Server</a>
+  </nav>
+
+  <router-outlet></router-outlet>
+</div>
+
+-->

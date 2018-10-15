@@ -1,0 +1,74 @@
+<info-screen [info]="logToInfo" [visible]="logVisible" (cerrarLog)="logVisible=false"></info-screen>
+<div class="container-fluid">
+
+	<div class="row">
+		<h3 class="col-xl-12">Algunos números</h3>
+	</div>
+
+	<div *ngIf="resume" class="row">
+		<p class="col-xl-12">Servidores agregados: {{resume.nServers}}</p>
+		<p class="col-xl-12">Skiptables existentes: {{resume.nSkipTables}}</p>
+		<p class="col-xl-12">Autoservers agregados: {{resume.nAutoServers}}</p>
+	</div>
+	<hr>
+	<div *ngIf="resume">
+		<div class="row">
+			<div class="col-md-12 col-xl-12 div-logs">
+				<table class="table table-sm">
+					  <tbody *ngIf="resume.lastLogs && resume.lastLogs.length > 0; else noLog" >
+						<ng-container *ngFor="let servidor of resume.lastLogs; let i = index">
+
+							<ng-container [ngSwitch]="i%20">
+
+								<ng-container *ngSwitchCase="0">
+									<tr class="trSubHead">
+								      <th scope="col">Fecha</th>
+								      <th scope="col">IP</th>
+								      <th scope="col">Database</th>
+								      <th scope="col">Trigger</th>
+								      <th scope="col">Tipo</th>
+								      <th scope="col">Ver Log</th>
+								    </tr>
+									<tr *ngSwitchDefault>
+								  		<td>{{servidor.backupDate | date:'shortTime'}}</td>
+								  		<td>{{servidor.ip}}</td>
+								  		<td>{{servidor.database}}</td>
+								  		<td>{{servidor.trigger}}</td>
+								  		<td>{{servidor.type}}</td>
+							  			<td><a (click)="displayServerLog(i)">Ver Log</a></td>
+							  		</tr>
+								</ng-container>
+
+								<ng-container>
+									<tr>
+								  		<td>{{servidor.backupDate | date:'H:mm dd/MM/yyyy'}}</td>
+								  		<td>{{servidor.ip}}</td>
+								  		<td>{{servidor.database}}</td>
+								  		<td>{{servidor.trigger}}</td>
+								  		<td>{{servidor.type}}</td>
+							  			<td><a (click)="displayServerLog(i)">Ver Log</a></td>
+							  		</tr>
+								</ng-container>
+							</ng-container>	
+						</ng-container>							  	
+					  </tbody>
+				</table>
+			</div>
+		</div>
+	</div> 
+
+</div>
+
+<ng-template #noLog>
+	<tr class="trSubHead">
+      <th scope="col">Fecha</th>
+      <th scope="col">IP</th>
+      <th scope="col">Database</th>
+      <th scope="col">Trigger</th>
+      <th scope="col">Tipo</th>
+      <th scope="col">Ver Log</th>
+    </tr>
+    <tr>
+    	<td colspan="6" style="text-align: center;">No hay registros que mostrar</td>
+    </tr>
+</ng-template>				

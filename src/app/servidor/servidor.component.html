@@ -1,0 +1,27 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-11 dropdown">
+			<button class="btn btn-primary btn-color-blue dropdown-toggle w-100" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [disabled]="!serverList || (serverList && serverList.length == 0)">
+				<span *ngIf="serverId;else elegirServidor">{{lastServerAlias}} ({{lastServerDatabase}})</span>
+	  		</button>
+	  		<div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
+			    <a *ngFor="let server of serverList" class="dropdown-item" [routerLink]="['/server/'+server.alias+'/'+server.database+'/'+server._id]">{{server.alias}} ({{server.database}})</a>
+		  	</div>
+		</div>
+		<div class="col-1">
+			<button class="btn btn-success w-100" (click)="redirectAddServidor()" type="button">+</button>
+		</div>
+	</div>
+</div>
+
+<div *ngIf="serverId;then editarServidor"></div>
+
+<ng-template #elegirServidor>
+<span *ngIf="serverList && serverList.length > 0">Selecciona un servidor</span>
+<span *ngIf="!serverList || (serverList && serverList.length == 0)">No hay servidores agregados</span>
+</ng-template>
+
+<ng-template #editarServidor>
+	<editar-servidor>Cargando Servidor...</editar-servidor>
+</ng-template>
+

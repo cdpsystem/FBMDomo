@@ -1,0 +1,29 @@
+.home-menu{
+	background-color:rgb(39, 43, 146);
+}
+
+@media (max-width: 767px){
+	.home-menu{
+		width:100%;
+		position: sticky;
+	}
+	.home-menu ul{
+		width: 100%
+	}
+	.home-menu ul li{
+		/* width: 10%; */
+		min-width: 14px;
+	}
+}
+
+@media (min-width: 768px){
+	.home-menu{
+		height: 100%;
+		position: fixed;
+	}
+}
+
+
+.home-menu a{
+	color: white;	
+}

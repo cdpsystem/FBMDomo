@@ -1,0 +1,158 @@
+/** https://coolors.co/f05d5e-0f7173-909cc2-084887-d8a47f */
+.form-control,
+th{
+	text-align: center;
+}
+
+.btn-crear-backup{
+	width: 100%;
+	margin-top: 4px;
+	background-color: rgb(240, 93, 94);
+	-webkit-transition: background-color 100ms linear;
+    -ms-transition: background-color 100ms linear;
+    transition: background-color 100ms linear;
+}
+.btn-crear-backup:hover{
+	background-color: rgba(240, 93, 94,0.6);
+}
+
+.btn-auto-server{
+	width: 100%;
+	margin-top: 4px;
+	-webkit-transition: background-color 100ms linear;
+    -ms-transition: background-color 100ms linear;
+    transition: background-color 100ms linear;
+}
+
+.btn-color-blue{
+	background-color: rgb(59,123,176);
+}
+
+.btn-color-purple{
+	background-color: rgb(119,104,174);
+}
+.btn-color-purple:hover{
+	background-color: rgba(119,104,174,0.6);
+}
+
+.div-acciones{}
+
+.div-acciones ul{
+	width: 100%;
+	padding: 0;
+
+	margin: auto;
+	list-style-type: none;	
+}
+
+.div-acciones ul li{
+	width: 100%;
+	
+}
+
+.div-acciones ul li a{
+	display: inline-block;
+
+	width: 100%;
+
+	padding:4px 2px;
+	margin-bottom: 5px;
+
+	color: white;
+
+	font-weight: 500;
+	text-align: center;
+	border: 1px solid black;
+	cursor: pointer;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 0, 0.2);
+
+	-webkit-transition: background-color 100ms linear;
+    -ms-transition: background-color 100ms linear;
+    transition: background-color 100ms linear;
+}
+
+
+
+
+.div-acciones ul li:nth-child(1) a{
+	background-color: rgb(15, 113, 115);
+}
+
+.div-acciones ul li:nth-child(1) a:hover{
+	background-color: rgba(15, 113, 115,0.6);
+}
+
+.div-acciones ul li:nth-child(2) a{
+	background-color: rgb(184, 184, 209);
+}
+.div-acciones ul li:nth-child(2) a:hover{
+	background-color: rgba(184, 184, 209,0.6);
+}
+
+.div-acciones ul li:nth-child(3) a{
+	background-color: rgb(8, 72, 135);
+}
+
+.div-acciones ul li:nth-child(3) a:hover{
+	background-color: rgba(8, 72, 135,0.6);
+}
+
+.div-acciones ul li:nth-child(4) a{
+	background-color: rgb(216, 164, 127);
+}
+
+.div-acciones ul li:nth-child(4) a:hover{
+	background-color: rgba(216, 164, 127,0.6);
+}
+
+.div-acciones ul li:nth-child(5) a{}
+
+.div-acciones ul li:nth-child(5) a:hover{}
+
+.div-logs{ 
+	max-height: 350px; 
+	overflow-y: scroll; 
+}
+
+.div-logs table{
+
+}
+
+tr.trSubHead{
+	color: #fff;
+    background-color: #212529;
+    border-color: #32383e;
+}
+
+.flex-skiptables{
+
+}
+
+.flex-skiptables div{
+	background-color: rgb(215,124,147);
+	color:white;
+	border: 1px solid black;
+	margin: 1px;
+}
+
+.span-version{
+	width: 100%;
+	text-align: center;
+	display: block;
+	font-size: 50px;
+	color: rgb(23,126,137);
+	text-shadow: -.5px 0 black, 0 .5px black, .5px 0 black, 0 -.5px black;
+}
+.span-version-no-installed{
+	width: 100%;
+	text-align: center;
+	display: block;
+	color: rgb(23,126,137);
+}
+.span-new-version{
+	width: 100%;
+	text-align: center;
+	color: #bed558;
+	text-shadow: -.5px 0 black, 0 .5px black, .1px 0 black, 0 -.5px black;
+	display: block;
+}

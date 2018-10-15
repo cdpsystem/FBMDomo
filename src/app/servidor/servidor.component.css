@@ -1,0 +1,14 @@
+.row > div{
+	padding: 0;
+}
+.row > div.col-11 > button{
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+.row > div.col-1 > button{
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+.btn-color-blue{
+	background-color: rgb(59,123,176);
+}

@@ -1,0 +1,12 @@
+<div *ngIf="_visible" class="container-fluid info-screen">
+	<div class="d-flex align-items-center">
+		<div class="d-2 h-75 container-fluid">
+			<div class="row h-75">
+				<div class="col-xl-1 offset-xl-11 text-center">
+					<button (click)="fireCerrarLog($event)" class="btn btn-primary">X</button>
+				</div>
+				<div class="col-xl-12" *ngFor="let logLine of _info">{{logLine}}</div>
+			</div>
+		</div>	
+	</div>
+</div>

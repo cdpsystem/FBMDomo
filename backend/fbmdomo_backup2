@@ -1,0 +1,96 @@
+#!/bin/bash
+#Ejecutable para extraer las bases de datos segun parametros
+#$1 -> Parámetro
+#$2 -> Base de datos
+#$3 -> Usuario
+#$4 -> Password
+#Funcion añadir meta datos antes del raw de mysql
+version="1.4 Beta"
+
+skipTablesArray=()
+
+ruta="${HOME}/fbmdomo/backup_db"
+printf -v fechaTiempo '%(%s)T' -1
+
+function addMetaData(){
+
+	sleep 0.05
+	echo ${fechaTiempo}
+	sleep 0.05
+	echo "${1}"
+	sleep 0.05
+	echo "${2}"
+
+}
+
+if [ -z $1 ]
+then
+	echo "Faltan parámetros"
+	echo "USO: fbmdomo_backup --structure/--data Database User Pass"
+	exit
+fi
+
+if [ $1 = "--version" ]
+then
+	echo ${version}
+	exit
+fi
+
+if [ $1 = "--serverstatus" ]
+then
+	df -h
+	exit
+fi
+
+if [ $1 = "--providerstatus" ]
+then
+	/etc/init.d/apache2 status
+	/etc/init.d/nginx status
+
+	exit
+fi
+
+
+if [ -z $2 ] || [ -z $3 ] || [ -z $4 ]
+then
+	echo "Faltan parámetros"
+	echo "USO: fbmdomo_backup --structure/--data Database User Pass"
+	exit
+fi
+
+if [ -d "${ruta}/${2}" ]
+then
+    echo "1"
+else
+    echo "0"
+    mkdir "${ruta}/${2}"
+fi
+	
+if [ $1 = "--data" ] || [ $1 = "-d" ]
+then
+
+	IFS='¿' read -r -a array <<< "$5"
+	for i in "${array[@]}"
+	do : 
+		skipTablesArray+=( "--ignore-table=${i}" )
+	done
+
+	addMetaData $1 $2
+	sleep 0.05
+	mysqldump --no-create-info --user=$3 --password=$4 ${skipTablesArray[@]} $2 > "${ruta}/${2}/${fechaTiempo}_${2}_data.sql"
+	sleep 0.05
+	echo "${ruta}/${2}/${fechaTiempo}_${2}_data.sql"
+	grep -E "\\-\\- " ${ruta}/${2}/${fechaTiempo}_${2}_data.sql | grep -v -E 'INSERT '
+
+elif [ $1 = "--structure" ] ||  [ $1 = "-s" ]
+then
+	addMetaData $1 $2
+	sleep 0.05
+	mysqldump --no-data --user=$3 --password=$4 $2 > "${ruta}/${2}/${fechaTiempo}_${2}_structure.sql"
+	sleep 0.05
+	echo "${ruta}/${2}/${fechaTiempo}_${2}_structure.sql"
+	grep "\\-\\- " ${ruta}/${2}/${fechaTiempo}_${2}_structure.sql
+
+else
+	echo "Parametro no comprendido"
+fi 

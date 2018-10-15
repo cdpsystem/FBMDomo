@@ -1,0 +1,126 @@
+<form #formAgregarServidor="ngForm" (ngSubmit)="onSubmit(formAgregarServidor)">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 col-lg-12 col-xl-6">
+				<div class="row div-addserver-info">
+					<div class="col-xl-12">
+						<h2>Agregar Servidor</h2>
+						<p class="text-justify"><strong>Un servidor en FBMDomo consta de la siguiente información.</strong></p>
+						<p class="text-justify">
+							<strong>Alias:</strong> Es simplemente un identificador para poder gestionar de manera mas facil los servidores a agregar.<br/><br/>
+							<strong>IP / Host:</strong> Ip o direccion del servidor al que se quiere apuntar.<br/><br/>
+							<strong>Usuario, Password SSH:</strong> Los datos de acceso SSH del servidor.<br/><br/>
+							<strong>Base de datos:</strong> Base de datos de la que se quiere hacer la backup, se puede hacer backup's de varias bases de datos desde el mismo servidor.<br/><br/>
+							<strong>Usuario, Password DB:</strong> Los datos de acceso a la base de datos.
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-12 col-lg-12 col-xl-6">
+				<div class="row div-form-inputs">
+
+					<div class="col-xl-6">
+						<div class="row">
+
+							<div class="col-lg-6 col-xl-12 order-1">
+								<!--
+								<input class="form-control" [ngClass]="{
+									'form-control-good' : alias.touched && alias.valid ,
+									'form-control-bad' : alias.touched && !alias.valid
+								}" placeholder="Alias" tabindex="1" type="text" name="alias" #alias="ngModel" [(ngModel)]="servidor.alias" required pattern="^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$">-->
+								<div class="input-group">
+				  					<div class="input-group-prepend">
+				    					<button class="btn-alias btn btn-info dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [disabled]="servers.length == 0">Lista alias</button>
+				    					<div class="dropdown-menu">
+				    						<a *ngFor="let server of servers | unique" (click)="setAliasToInput(server.alias,server.ip,server.userSSH,server.passSSH)" class="dropdown-item">{{server.alias}}</a>
+				    						<!--
+				      						<div role="separator" class="dropdown-divider"></div>
+				      							<a class="dropdown-item">Separated link</a>
+				      						-->
+			    						</div> 
+			  						</div>
+			  						<input 
+			  							class="form-control" 
+			  							[ngClass]="{
+										'form-control-good' : alias.valid,
+										'form-control-bad' : alias.touched && !alias.valid
+										}" 
+										tabindex="1" 
+										placeholder="Alias" 
+										type="text" 
+										name="alias" 
+										#alias="ngModel" 
+										[(ngModel)]="servidor.alias" 
+										required 
+										pattern="^[A-Za-z0-9 _\[\]]*$"
+									>
+								</div>
+							</div>
+
+							<div class="col-lg-6 col-xl-12 order-2">
+								<input class="form-control" [ngClass]="{
+									'form-control-good' : ip.touched && ip.valid ,
+									'form-control-bad' : ip.touched && !ip.valid
+
+								}" placeholder="IP / Host" tabindex="2" type="text" name="ip" #ip="ngModel" [(ngModel)]="servidor.ip" required>
+							</div>
+
+							<div class="col-lg-6 col-xl-12 order-3">
+								<input class="form-control" [ngClass]="{
+									'form-control-good' : userSSH.touched && userSSH.valid ,
+									'form-control-bad' : userSSH.touched && !userSSH.valid
+
+								}" placeholder="Usuario SSH" tabindex="3" type="text" name="userSSH" #userSSH="ngModel" [(ngModel)]="servidor.userSSH" required>
+							</div>
+
+							<div class="col-lg-6 col-xl-12 order-4">
+								<input class="form-control" [ngClass]="{
+									'form-control-good' : passSSH.touched && passSSH.valid ,
+									'form-control-bad' : passSSH.touched && !passSSH.valid
+
+								}" placeholder="Password SSH" tabindex="4"  type="password" name="passSSH" #passSSH="ngModel" [(ngModel)]="servidor.passSSH" required>
+							</div>
+						</div>			
+					</div>
+
+					<div class="col-xl-6">
+						<div class="row">
+							<div class="col-lg-6 col-xl-12 order-5">
+								<input class="form-control" [ngClass]="{
+									'form-control-good' : database.touched && database.valid ,
+									'form-control-bad' : database.touched && !database.valid
+
+								}" placeholder="Base de datos" tabindex="5" type="text" name="database" #database="ngModel" [(ngModel)]="servidor.database" required>
+							</div>						
+
+							<div class="col-lg-6 col-xl-12 order-6">
+								<input class="form-control" [ngClass]="{
+									'form-control-good' : userDB.touched && userDB.valid ,
+									'form-control-bad' : userDB.touched && !userDB.valid
+
+								}" placeholder="Usuario DB" tabindex="6" type="text" name="userDB" #userDB="ngModel" [(ngModel)]="servidor.userDB" required>
+							</div>
+
+							<div class="col-lg-6 col-xl-12 order-7">
+								<input class="form-control" [ngClass]="{
+									'form-control-good' : passDB.touched && passDB.valid ,
+									'form-control-bad' : passDB.touched && !passDB.valid
+
+								}" placeholder="Password DB" tabindex="7" type="password" name="passDB" #passDB="ngModel" [(ngModel)]="servidor.passDB" required>
+							</div>
+
+							<div class="col-lg-6 col-xl-12 order-8">
+								<input class="form-control btn btn-primary btn-color-blue" [ngClass]="{
+									'btn-success': isServerAgregado
+								}" type="submit" value="Enviar" [disabled]="!formAgregarServidor.form.valid">
+							</div>
+
+						</div>	
+					</div>	
+
+				</div>	
+
+			</div>
+		</div>
+	</div>
+</form>

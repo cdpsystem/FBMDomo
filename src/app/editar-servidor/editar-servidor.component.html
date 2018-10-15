@@ -1,0 +1,332 @@
+<load-screen *ngIf="loading"></load-screen>
+<info-screen [info]="logToInfo" [visible]="logVisible" (cerrarLog)="logVisible=false"></info-screen>
+<div *ngIf="servidor" class="container-fluid">
+
+	<div class="row">
+		<form style="width: 100%;overflow-x: scroll;" #formEditarServidor="ngForm" (ngSubmit)="onSubmit(formEditarServidor)">
+			<div class="col-xl-12">
+				<table class="table">
+				  <thead class="thead-dark">
+				    <tr>
+				      <th scope="col">Alias</th>
+				      <th scope="col">IP</th>
+				      <th scope="col">User SSH</th>
+				      <th scope="col">Pass SSH</th>
+				      <th scope="col">Database</th>
+				      <th scope="col">User DB</th>
+				      <th scope="col">Pass DB</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  	<tr>
+				  		<td>
+				  			<input 
+				  				class="form-control" 
+								type="text" 
+								name="alias" 
+								#alias="ngModel" 
+								[(ngModel)]="servidor.alias"
+								[disabled]="!edit"
+								required
+								>
+				  		</td>
+				  		<td>
+				  			<input 
+				  				class="form-control" 
+								type="text" 
+								name="ip" 
+								#ip="ngModel" 
+								[(ngModel)]="servidor.ip"
+								[disabled]="!edit" 
+								required
+								>
+				  		</td>
+				  		<td>
+				  			<input 
+				  				class="form-control" 
+								type="text" 
+								name="userSSH" 
+								#userSSH="ngModel" 
+								[(ngModel)]="servidor.userSSH" 
+								[disabled]="!edit"
+								required
+								>
+				  		</td>
+				  		<td>
+				  			<input 
+				  				class="form-control" 
+								type="password" 
+								name="passSSH" 
+								#passSSH="ngModel" 
+								[(ngModel)]="servidor.passSSH"
+								[disabled]="!edit" 
+								required
+								>
+				  		</td>
+				  		<td>
+				  			<input 
+				  				class="form-control" 
+								type="text" 
+								name="database" 
+								#database="ngModel" 
+								[(ngModel)]="servidor.database"
+								[disabled]="!edit" 
+								required
+								>
+				  		</td>
+				  		<td>
+				  			<input 
+				  				class="form-control" 
+								type="text" 
+								name="userDB" 
+								#userDB="ngModel" 
+								[(ngModel)]="servidor.userDB"
+								[disabled]="!edit" 
+								required
+								>
+				  		</td>
+				  		<td>
+				  			<input 
+				  				class="form-control"
+								type="password"
+								name="passDB"
+								#passDB="ngModel"						
+								[(ngModel)]="servidor.passDB"
+								[disabled]="!edit"
+								required
+								>  			
+				  		</td>
+				  		
+				  	</tr>
+				  </tbody>
+				</table>
+
+				<input 
+	  				class="form-control" 
+					type="hidden" 
+					name="id" 
+					#id="ngModel" 
+					[(ngModel)]="servidor._id" 
+					required>
+				<button 
+					class="form-control btn btn-primary btn-color-purple"
+					*ngIf="!edit"
+					(click)="edit=true">Habilitar edicción</button>
+				<input 
+					*ngIf="edit"
+					class="form-control btn btn-primary btn-color-blue"
+					[ngClass]="{
+						'btn-success': isServerAgregado
+					}"
+					type="submit"
+					value="Guardar"
+					[disabled]="!edit || !formEditarServidor.form.valid">
+				<button 
+					[disabled]="edit" 
+					class="btn btn-primary btn-crear-backup" 
+					(click)="createFullBackup()">Crear Backup</button> 
+				<button 
+					*ngIf="isAutoServer" 
+					class="btn btn-success btn-auto-server" 
+					(click)="deleteAutoServer()">AutoBackup enabled</button>
+				<button 
+					*ngIf="!isAutoServer" 
+					class="btn btn-secondary btn-auto-server" 
+					(click)="addAutoServer()">AutoBackup disabled</button>
+			</div>
+		</form>
+	</div>
+	<hr>	
+	<div class="row" style="border: 1px solid black">
+		<div class="col-xl-12"><h3>Cuadro información servidor.</h3></div>
+		<div class="col-xl-4">
+			<p>Espacio en disco:</p>
+			<p>{{serverInfoSpace}}</p>
+		</div>
+		<div class="col-xl-8">
+			<p>Apache:</p> <pre>{{serverInfoProviders.apache}}</pre>
+			<p>Nginx:</p> <pre>{{serverInfoProviders.nginx}}</pre>
+		</div>
+	</div>
+
+	<hr>
+
+	<div class="row">
+		<div class="col-md-12 col-xl-4 h-100 div-acciones">
+			<ul>					
+				<li><a (click)="opcion=1;getServerSkiptables()">Skiptables</a></li>
+				<li><a (click)="opcion=2;getBackupFilesList()">Backup's almacenadas</a></li>
+				<li><a (click)="opcion=3;getServerFBMDomoInstalledVersion();getInstallableFBMDomoVersion()">Comprobar FBMDomo</a></li>
+				<li><a (click)="opcion=4">Borrar servidor</a></li>
+			</ul>				
+		</div>
+
+		<div class="col-md-12 col-xl-8 h-100" style="max-height: 155px;" [ngSwitch]="opcion">
+
+			<ng-container *ngSwitchCase="1">
+				<div class="row">
+					<div class="col-xl-3 ">
+						<form #formAddSkiptable="ngForm" (ngSubmit)="addSkiptable(formAddSkiptable)"> 
+							<input 
+				  				class="form-control"
+								type="text"
+								name="skiptable"
+								#skiptable="ngModel"						
+								[(ngModel)]="newSkiptable[0]"
+								required
+								>
+							<input 
+								class="form-control btn btn-primary btn-color-blue"
+								type="submit"
+								value="Guardar"
+								[disabled]="!formAddSkiptable.form.valid">	
+						</form>
+					</div>		
+					<div class="col-xl-9 d-flex align-items-start flex-wrap flex-skiptables" *ngIf="skiptablesArray">
+						<div *ngFor="let item of skiptablesArray.arrSkiptables" class="p-2">{{item}} <a (click)="deleteSkiptableItem(item)">X</a></div>
+					</div>
+					
+				</div>
+			</ng-container>
+			
+			<ng-container *ngSwitchCase="2">
+				<div>
+					<p>Backup's Almacenadas</p>
+				</div>
+			</ng-container>
+			<ng-container *ngSwitchCase="3">
+				<div class="row h-100">
+					<div class="col-xl-12" style="margin-bottom: 5px">
+						<div class="row align-self-center ">						
+							<p>Version Instalada:</p>
+							<div class="col-xl-12 h-75 card card-block my-auto">
+								<span *ngIf="!FBMDomoVersion" class="my-auto span-version-no-installed">No Instalada<br/></span>
+								<span *ngIf="FBMDomoVersion" class="my-auto span-version">{{FBMDomoVersion}}<br/></span>
+								<span class="my-auto span-new-version" *ngIf="checkIfUpdate() == 1">Actualizacion disponible</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-12 h-25">
+						<div class="row">
+							<div *ngIf="!FBMDomoVersion" class="col-xl-12">
+								<button (click)="FBMDomoInstall()" class="btn btn-primary w-100">Instalar FBMDomo</button>
+							</div>
+							<div *ngIf="FBMDomoVersion" class="col-xl-6">
+								<button *ngIf="checkIfUpdate() == 1" (click)="FBMDomoInstall()" class="btn btn-success w-100">Actualizar</button> 
+								<button *ngIf="checkIfUpdate() == 0" (click)="FBMDomoInstall()" class="btn btn-warning w-100">Reinstalar</button> 
+							</div>
+							<div class="col-xl-6">
+								<button *ngIf="FBMDomoVersion" (click)="uninstallFBMDomo()" class="btn btn-danger w-100">Desinstalar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</ng-container>
+			<ng-container *ngSwitchCase="4">
+				<div class="row h-100">
+					<div class="col-xl-12">
+						<p>Esta accion no se puede desacer. ¿Estas seguro?</p>
+					</div>
+					<div class="col-xl-12">
+						<form class="row" #formBorrarServidor="ngForm" (ngSubmit)="delServer(formBorrarServidor)">
+							<div class="col-xl-12">
+								<input 
+					  				class="form-control"
+									type="password"
+									placeholder="Introduce el password del servidor para borrar" 
+									name="deletepassword"
+									#deletepassword="ngModel"						
+									[(ngModel)]="delPassword"
+									required
+									>
+							</div>
+							<div class="col-xl-12">
+								<input 
+								class="form-control btn btn-primary"
+								type="submit"
+								value="Guardar"
+								[disabled]="delPassword != servidor.passSSH"
+									>	
+							</div>
+						</form>
+					</div>
+					
+				</div>
+			</ng-container>
+
+			<ng-container *ngSwitchDefault>
+				<div>
+					<p>Elige una opcion de la izquierda para realizar diferentes acciones</p>
+				</div>
+			</ng-container>
+
+		</div>
+	</div>
+
+	<hr>
+	<div class="row">
+			<div class="col-md-12 col-xl-12 div-logs">
+				
+				<table class="table table-sm">
+					  <tbody *ngIf="logArray && logArray.length > 0; else noLog" >
+						<ng-container *ngFor="let servidor of logArray; let i = index">
+
+							<ng-container [ngSwitch]="i%20">
+
+								<ng-container *ngSwitchCase="0">
+									<tr class="trSubHead">
+								      <th scope="col">Fecha</th>
+								      <th scope="col">IP</th>
+								      <th scope="col">Database</th>
+								      <th scope="col">Trigger</th>
+								      <th scope="col">Tipo</th>
+								      <th scope="col">Ver Log</th>
+								    </tr>
+									<tr *ngSwitchDefault>
+								  		<td>{{servidor.backupDate | date:'shortTime'}}</td>
+								  		<td>{{servidor.ip}}</td>
+								  		<td>{{servidor.database}}</td>
+								  		<td>{{servidor.trigger}}</td>
+								  		<td>{{servidor.type}}</td>
+							  			<td><a (click)="displayServerLog(i)">Ver Log</a></td>
+							  		</tr>
+								</ng-container>
+
+								<ng-container>
+									<tr>
+								  		<td>{{servidor.backupDate | date:'H:mm dd/MM/yyyy'}}</td>
+								  		<td>{{servidor.ip}}</td>
+								  		<td>{{servidor.database}}</td>
+								  		<td>{{servidor.trigger}}</td>
+								  		<td>{{servidor.type}}</td>
+							  			<td><a (click)="displayServerLog(i)">Ver Log</a></td>
+							  		</tr>
+								</ng-container>
+							
+								
+							</ng-container>	
+						</ng-container>							  	
+					  </tbody>
+				</table>
+			</div>
+	</div>		
+</div>
+
+
+<!--Templates Opciones-->
+
+
+
+<ng-template #noLog>
+	<tr class="trSubHead">
+      <th scope="col">Fecha</th>
+      <th scope="col">IP</th>
+      <th scope="col">Database</th>
+      <th scope="col">Trigger</th>
+      <th scope="col">Tipo</th>
+      <th scope="col">Ver Log</th>
+    </tr>
+    <tr>
+    	<td colspan="6" style="text-align: center;">No hay registros que mostrar</td>
+    </tr>
+</ng-template>				

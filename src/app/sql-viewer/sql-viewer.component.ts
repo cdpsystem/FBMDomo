@@ -26,7 +26,6 @@ export class SQLViewerComponent implements OnInit {
 
 	ngOnInit(){
 		this.getServerList();
-		console.log("Se ha ejecutado");
 	}
 
 	gotoServer(alias,database,id){

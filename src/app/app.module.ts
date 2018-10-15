@@ -17,6 +17,7 @@ import { EditarServidorComponent } from './editar-servidor/editar-servidor.compo
 import { TestComponent } from './test/test.component';
 import { InfoScreenComponent } from './info-screen/info-screen.component';
 import { SQLViewerComponent } from './sql-viewer/sql-viewer.component';
+import { ViewerComponent } from './sql-viewer/viewer/viewer.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { SQLViewerComponent } from './sql-viewer/sql-viewer.component';
     TestComponent,
     InfoScreenComponent,
     SQLViewerComponent,
+    ViewerComponent,
   ],
   imports: [
     BrowserModule,

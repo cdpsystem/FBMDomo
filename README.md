@@ -11,5 +11,7 @@ Sistema de control de servidores basados en linux
 Para instalar la aplicacion hay que ejecutar el siguiente comando en dos rutas diferentes
 Comando: npm install
 Rutas
-    /
-    /backend/
+```
+/(Raiz de la aplicación)
+/backend/
+```

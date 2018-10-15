@@ -1,7 +1,15 @@
 # FBMDomo
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.3.
+## Descripcion
+Sistema de control de servidores basados en linux
 
 ## Dependencias
-> HOla
-> Hola2
+1. Angular 6
+2. Node.js
+
+## Instalación
+Para instalar la aplicacion hay que ejecutar el siguiente comando en dos rutas diferentes
+Comando: npm install
+Rutas
+    /
+    /backend/

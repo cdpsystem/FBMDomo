@@ -1,3 +1,24 @@
-<p>{{serverAlias}}</p>
-<p>{{serverDatabase}}</p>
-<p>{{serverId}}</p>
+
+
+<div class="container-fluid">
+
+	<!-- CABECERAS -->
+	<div class="row">
+		<div class="col-md-2">
+			<p>Tabla</p>
+		</div>
+		<div class="col-md-1">
+			<p>Nº Columnas</p>
+		</div>
+	</div>
+	<!-- CABECERAS -->
+
+	<div class="row" *ngFor="let i of tables">
+		<div class="col-md-2">
+			<p>{{i[0]}}</p>
+		</div>
+		<div class="col-md-1">
+			<p>{{i[1]}}</p>
+		</div>
+	</div>
+</div>

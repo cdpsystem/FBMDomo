@@ -19,6 +19,10 @@ export class ViewerComponent implements OnInit {
 	//Servidor
 	public servidor:any;
 
+	//datos extraidos
+		//Nombr Tablas
+		public tables:Array<any>;
+
 
   	constructor(
   		private _route: ActivatedRoute,
@@ -55,8 +59,10 @@ export class ViewerComponent implements OnInit {
 
 	sqlInfo(){
 		this._SQLViewer.sqlInfo(this.servidor).subscribe(
-			response => {
-				console.log(response);
+			response => {	
+				console.log(response);			
+				this.tables = response.message.table;
+
 			},
 			err => {console.log(err)}
 		)

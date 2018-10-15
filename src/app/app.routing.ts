@@ -7,6 +7,7 @@ import { ServidorComponent } from './servidor/servidor.component';
 import { HomeComponent } from './home/home.component';
 import { AgregarServidorComponent } from './agregar-servidor/agregar-servidor.component';
 import { TestComponent } from './test/test.component';
+import { SQLViewerComponent } from './sql-viewer/sql-viewer.component';
 
 //Array configuracion rutas
 
@@ -23,6 +24,10 @@ const appRoutes: Routes = [
 
 	//** Borrar en produccion - deleteonproduction **//
 	{path: 'test',component : TestComponent},
+
+
+	//SQL Viewer
+	{path: 'sqlviewer',component: SQLViewerComponent},
 
 	//** Es la ruta 404 DEBE ser siempre la última
 	{path: '**' , component: HomeComponent}

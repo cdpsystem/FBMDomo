@@ -15,3 +15,9 @@ Rutas
 /(Raiz de la aplicación)
 /backend/
 ```
+## Configuración
+Existe un archivo dentro de configuración llamado config.ts
+```
+/src/app/models/config.ts
+```
+En el que se puede cambiar la configuración por defecto de la aplicación

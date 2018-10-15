@@ -16,17 +16,21 @@ export class SqlViewerService {
 	}
 
 	//TODO: Obtiene un resumen de la base de datos
-	public sqlInfo(){}
+	public sqlInfo(servidor):Observable<any>{
+		let params = JSON.stringify(servidor);
+		let headers = new HttpHeaders()
+			.set('Content-Type','application/json')	
+		return this._http.post(this.url+'/api/sqlviewer/sqlinfo',params,{headers : headers});
+	}
 
 	//TODO: Obtiene la lista de las tablas de la base de datos
-	public listTables(){}
+	public listTables():Observable<any>{return null}
 
 	//TODO: Obtiene las columnas de una base de datos
-	public getColumns(){}
+	public getColumns():Observable<any>{return null}
 
 	//TODO Obtiene la información de una base de datos
-	public getTableValues(){}
-
+	public getTableValues():Observable<any>{return null}
 
 
 }

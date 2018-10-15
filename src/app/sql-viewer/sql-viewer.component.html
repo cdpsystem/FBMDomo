@@ -5,7 +5,7 @@
 				<span *ngIf="serverId;else elegirServidor">{{lastServerAlias}} ({{lastServerDatabase}})</span>
 	  		</button>
 	  		<div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
-			    <a *ngFor="let server of serverList" class="dropdown-item" [routerLink]="['/server/'+server.alias+'/'+server.database+'/'+server._id]">{{server.alias}} ({{server.database}})</a>
+			    <a *ngFor="let server of serverList" class="dropdown-item" (click)="gotoServer(server.alias,server.database,server._id)">{{server.alias}} ({{server.database}})</a>
 		  	</div>
 		</div>
 		<div class="col-1">

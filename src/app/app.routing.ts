@@ -30,7 +30,7 @@ const appRoutes: Routes = [
 	//SQL Viewer
 	{path: 'sqlviewer',component: SQLViewerComponent,children:[
 		{path: '', redirectTo: '', pathMatch: 'full'},
-		{path: ':server/:user/:pass', component: ViewerComponent }
+		{path: ':alias/:database/:id', component: ViewerComponent }
 
 	]},
 

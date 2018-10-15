@@ -26,13 +26,14 @@ export class SQLViewerComponent implements OnInit {
 
 	ngOnInit(){
 		this.getServerList();
+		console.log("Se ha ejecutado");
+	}
 
-		this._route.params.subscribe((params: Params) =>{
-			this.lastServerAlias = params.alias;
-			this.lastServerDatabase = params.database;
-			this.serverId = params.id;
-		});
-
+	gotoServer(alias,database,id){
+		this.lastServerAlias = alias;
+		this.lastServerDatabase = database;
+		this.serverId = id;
+		this._router.navigate(["sqlviewer/"+alias+"/"+database+"/"+id]);
 	}
 
 	redirectAddServidor(){
@@ -49,5 +50,4 @@ export class SQLViewerComponent implements OnInit {
 	  		error =>{console.log(<any>error);}
 		);
 	  }
-
 }

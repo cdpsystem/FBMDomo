@@ -53,7 +53,6 @@ let controller = {
 		if(serverIpArray.length == 1){
 			serverIpArray[1] = 22;
 		}
-
 		ssh.connect({
 			host: serverIpArray[0], 
 			port: serverIpArray[1], 
@@ -62,20 +61,24 @@ let controller = {
 		})
 			.then( 
 				()=>{
+					console.log("Conectado");
 					ssh.putFile(scriptName,remotePath + scriptName)
 						.then(
-							function(){								
+							()=>{
+								console.log("Archivo Movido");
 								ssh.execCommand( "chmod +x " + remotePath+scriptName,{})
 									.then(
 										()=>{
 											return res.status(200).send({message: "FBMDomo Instalado / Reinstalado"});
 										},
 										error => {
+											console.log(error);
 											return res.status(500).send({message: "Error al aplicarle los permisos a FBMDomo",error: error});
 										}
 									);
 							},
 							error => {
+								console.log(error);
 								return res.status(500).send({message: "Error al actualizar FBMDomo",error: error});
 							}
 						);

@@ -212,10 +212,17 @@ export class EditarServidorComponent implements OnInit {
           this.FBMDomoVersion = response.version;
 
           //Comprobaciones de funciones por versiones
-          parseFloat(this.FBMDomoVersion) >= 1.4 ?  this.getServerInfo() : console.log("Evaluacion del servidor no soportado. Version >= 1.4 Beta");  
+          if(parseFloat(this.FBMDomoVersion) >= 1.4){
+            this.getServerInfo() ;  
+          }else{
+            console.log("Evaluacion del servidor no soportado. Requiere Version >= 1.4 Beta")
+          }
+           
+          
 
        },
        error => {console.log(error);}
+          
       );
   }
 
@@ -293,7 +300,7 @@ export class EditarServidorComponent implements OnInit {
            
            default:
              providers.forEach((val,index)=>{
-               if ( val.substr(0,7).toUpperCase() == "apache2".toUpperCase() ){
+               if ( val.substr(0,7).toUpperCase() == ("apache2").toUpperCase() ){
                  this.serverInfoProviders.apache = providers[index];
                  return true;
                }
@@ -303,7 +310,7 @@ export class EditarServidorComponent implements OnInit {
                }
              });
              if(!this.serverInfoProviders.nginx){this.serverInfoProviders.nginx = "No está instalado"}
-             if(!this.serverInfoProviders.apache){this.serverInfoProviders.nginx = "No está instalado"}
+             if(!this.serverInfoProviders.apache){this.serverInfoProviders.apache = "No está instalado"}
              break;
          }
 

@@ -52,10 +52,11 @@ export class EditarServidorComponent implements OnInit {
 
   ngOnInit() {
   	this._route.params.subscribe((params: Params) =>{	
-		this.getServer(params.id);
-    this.loading = false;
+      this.serverInfoProviders = {};
+		  this.getServer(params.id);
+      this.loading = false;
 
-	});
+	  });
   }
 
   onSubmit(form){
@@ -274,8 +275,6 @@ export class EditarServidorComponent implements OnInit {
 
          switch (responseStyle) {
            case "debian":
-
-             console.log(providers);
              this.serverInfoProviders = {};
              providers.forEach((val,index)=>{
                if ( val.substr(0,17) == "● apache2.service" ){
@@ -293,7 +292,18 @@ export class EditarServidorComponent implements OnInit {
              break;
            
            default:
-             this.serverInfoProviders = providers;
+             providers.forEach((val,index)=>{
+               if ( val.substr(0,7).toUpperCase() == "apache2".toUpperCase() ){
+                 this.serverInfoProviders.apache = providers[index];
+                 return true;
+               }
+               if ( val.substr(0,5).toUpperCase() == "nginx".toUpperCase() ){
+                 this.serverInfoProviders.nginx = providers[index];
+                 return true;
+               }
+             });
+             if(!this.serverInfoProviders.nginx){this.serverInfoProviders.nginx = "No está instalado"}
+             if(!this.serverInfoProviders.apache){this.serverInfoProviders.nginx = "No está instalado"}
              break;
          }
 

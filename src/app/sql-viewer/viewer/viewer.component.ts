@@ -11,6 +11,10 @@ import { SqlViewerService } from '../../services/sql-viewer.service';
 })
 export class ViewerComponent implements OnInit {
 
+	//Control cargando
+	public loaded = false;
+	public firstSearch = false;
+
 	//urlVariables
 	public serverAlias;
 	public serverDatabase;
@@ -29,12 +33,14 @@ export class ViewerComponent implements OnInit {
   		private _SQLViewer: SqlViewerService,
   		private _servidorService: ServidorService
 	){ 
-
+  		
   	}
 
 	ngOnInit() {
 		//Obtenemos los parámetros de la url
 		this._route.params.subscribe((params: Params) =>{
+			this.loaded = false;
+			this.firstSearch = true;
 			this.serverAlias = params.alias;
 			this.serverDatabase = params.database;
 			this.serverId = params.id;
@@ -62,7 +68,7 @@ export class ViewerComponent implements OnInit {
 			response => {	
 				console.log(response);			
 				this.tables = response.message.table;
-
+				this.loaded =true;
 			},
 			err => {console.log(err)}
 		)

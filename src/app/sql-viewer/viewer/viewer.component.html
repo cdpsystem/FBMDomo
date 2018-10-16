@@ -1,6 +1,12 @@
+<div class="container-fluid" *ngIf="!loaded && firstSearch" style="height: 200px;background: rgba(0,0,0,.6)">
+	<div class="row h-100">
+		<div class="col-xl-12 h-100 align-middle">
+			<h3 class="p-2" style="display: inline-block;">Espera...Cargando</h3>
+		</div>
+	</div>
+</div>
 
-
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="loaded">
 
 	<!-- CABECERAS -->
 	<div class="row">

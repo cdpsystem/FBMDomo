@@ -1,4 +1,5 @@
 <div class="d-flex justify-md-content-center col-sm-12 col-md-1 col-xl-2 home-menu">
+	
 	<ul class="nav nav-pills flex-md-column flex-sm-row w-100">
 
 		<li class="nav-item p-md-12 d-xs-inline-flex">
@@ -13,12 +14,17 @@
 				<span class="d-none d-xl-inline-block">&nbsp;Servidores</span>
 			</a>
 		</li>
+
 		<li class="nav-item p-md-12 d-xs-inline-flex">
 			<a class="nav-link text-xs-left  text-sm-left text-lg-center text-xl-left" [routerLink]="['/sqlviewer']" [routerLinkActive]="['active']">
 				<i class="fa fa-server"></i>
 				<span class="d-none d-xl-inline-block">&nbsp;SQL Viewer</span>
 			</a>
 		</li>
+
+		
+
+
 		<!--<li class="nav-item p-md-12 d-xs-inline-flex">
 			<a class="nav-link text-xs-left  text-sm-left text-lg-center text-xl-left" [routerLink]="['/agregar-servidor']" [routerLinkActive]="['active']">
 				<i class="fa fa-plus-square"></i> 
@@ -26,6 +32,10 @@
 			</a>
 		</li>-->
 	</ul>
+
+	<div class="nav-item p-md-12 align-self-end" style="position: absolute;">
+		<p style="color:white;"><span class="d-none d-xl-inline-block">Branch -> SQL Viewer</span></p>
+	</div>
 </div>
 
 

@@ -12,12 +12,17 @@ let controller = {
 		let respuesta = {};
 		let arrayHelper= [];
 
+		//get Puerto
+		let serverIpArray = req.body.ip.split(":");
+		if(serverIpArray.length == 1){
+			serverIpArray[1] = 22;
+		}
 		
-		let con = mysql.createConnection({host: servidor.ip, user: servidor.userDB, password: servidor.passDB});
+		let con = mysql.createConnection({host: serverIpArray[0], user: servidor.userDB, password: servidor.passDB});
 
 		//Conexión
 		try{ await con.connect(); }
-		catch (err){ return res.status(500).send({err: err}); }
+		catch (err){ return res.status(500).send({err: "No se ha podido crear la conexion MySQL (Host no permitido?)", error: err}); }
 
 		//SQL - Tablas
 		sql = `

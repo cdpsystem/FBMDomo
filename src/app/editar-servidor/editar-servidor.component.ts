@@ -30,7 +30,6 @@ export class EditarServidorComponent implements OnInit {
   public serverInfoSpace:any;
   public serverInfoProviders:any;
 
-
   public loading:boolean = true;
   public edit:boolean = false;
   public doubleBlock = false;

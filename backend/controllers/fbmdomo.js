@@ -23,8 +23,7 @@ let controller = {
 			host: serverIpArray[0], 
 			port: serverIpArray[1], 
 			username: req.body.userSSH,
-			password: req.body.passSSH ,
-			debug : console.log,
+			password: req.body.passSSH,
 			readyTimeout : 99999
 		})
 			.then( 

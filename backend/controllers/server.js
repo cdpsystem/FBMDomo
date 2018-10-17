@@ -195,7 +195,7 @@ let controller = {
 			//Provider status
 			comando = "fbmdomo_backup2 --providerstatus"
 			let stdout2 =  (await ssh.execCommand(comando, { cwd:'${HOME}/fbmdomo/' })).stdout.split("\n");
-
+			console.log(stdout2);
 			
 
 			res.status(200).send({freeSpace: stdoutFiltered, providers: stdout2});

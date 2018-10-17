@@ -294,14 +294,14 @@ export class EditarServidorComponent implements OnInit {
             options: { 
               title:{
                 display: true,
-                text: 'Espacio Total: '+this.serverInfoSpace[1]
+                text: `Espacio total: ${this.serverInfoSpace[1]} (${this.serverInfoSpace[4]})`
               },
               tooltips: {
                 enabled: true,
                 mode: 'single',
                 callbacks: {
                     label: function(tooltipItems, data) { 
-                        return data.datasets[0].data[tooltipItems.index] + ' GB';
+                        return `${data.datasets[0].data[tooltipItems.index]} GB`;
                     }
                 }
               },
@@ -324,17 +324,18 @@ export class EditarServidorComponent implements OnInit {
            case "debian":
              this.serverInfoProviders = {};
              providers.forEach((val,index)=>{
-               if ( val.substr(0,17) == "● apache2.service" ){
+               if ( val.substr(2,15) == "apache2.service" ){
                  this.serverInfoProviders.apache = providers[index+2];
                  return true;
                }
-               if ( val.substr(0,15) == "● nginx.service" ){
+               if ( val.substr(2,13) == "nginx.service" ){
+                 console.log(providers[index+2]);
                  this.serverInfoProviders.nginx = providers[index+2];
                  return true;
                }
              });
              if(!this.serverInfoProviders.nginx){this.serverInfoProviders.nginx = "No está instalado"}
-             if(!this.serverInfoProviders.apache){this.serverInfoProviders.nginx = "No está instalado"}
+             if(!this.serverInfoProviders.apache){this.serverInfoProviders.apache = "No está instalado"}
              
              break;
            

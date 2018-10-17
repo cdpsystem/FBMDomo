@@ -1,6 +1,6 @@
 #!/bin/bash
 # Ejecutable para extraer las bases de datos segun parametros
-# http://localhost:4200/server/Haier/magento/5bbf19bd2d3d75038426ef97
+# http://newline.nadav.org/
 #$1 -> Parámetro
 #$2 -> Base de datos
 #$3 -> Usuario

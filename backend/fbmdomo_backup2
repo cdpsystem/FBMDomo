@@ -10,7 +10,6 @@ version="1.4 Beta"
 skipTablesArray=()
 
 ruta="${HOME}/fbmdomo/backup_db"
-
 printf -v fechaTiempo '%(%s)T' -1
 
 function addMetaData(){

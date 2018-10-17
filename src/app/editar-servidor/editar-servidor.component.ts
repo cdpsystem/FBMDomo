@@ -275,9 +275,9 @@ export class EditarServidorComponent implements OnInit {
 
          let colorFree = 'rgb(238, 238, 238)';
          let colorOcc;
-         if( parseInt(this.serverInfoSpace[2].slice(0,-1)) * 100 / parseInt(this.serverInfoSpace[1].slice(0,-1))  > 50){
+         if( parseInt(this.serverInfoSpace[4].slice(0,-1)) > 50){
            colorOcc = 'rgb(255, 255, 128)';
-         }else if( parseInt(this.serverInfoSpace[2].slice(0,-1)) * 100 / parseInt(this.serverInfoSpace[1].slice(0,-1))  > 80  ){
+         }else if( parseInt(this.serverInfoSpace[4].slice(0,-1)) > 70  ){
            colorOcc = 'rgb(255, 128, 128)';
          }else{
            colorOcc = 'rgb(128, 255, 128)';
@@ -286,12 +286,16 @@ export class EditarServidorComponent implements OnInit {
            type: 'pie',
            data: {
              datasets: [{
-               data: [this.serverInfoSpace[2].slice(0,-1), this.serverInfoSpace[1].slice(0,-1)],
+               data: [this.serverInfoSpace[2].slice(0,-1), this.serverInfoSpace[3].slice(0,-1)],
                backgroundColor: [colorOcc, colorFree]            
              }],
-             labels: ['Ocupado', 'Libre']
+             labels: ['Ocupado', 'Disponible']
             },
             options: { 
+              title:{
+                display: true,
+                text: 'Espacio Total: '+this.serverInfoSpace[1]
+              },
               tooltips: {
                 enabled: true,
                 mode: 'single',

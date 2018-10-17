@@ -140,8 +140,7 @@
 	<div class="row" style="border: 1px solid black">
 		<div class="col-xl-12"><h3>Cuadro información servidor.</h3></div>
 		<div class="col-xl-4">
-			<p>Espacio en disco:</p>
-			<p>{{serverInfoSpace}}</p>
+			<canvas id="realtime">{{ chartRealtime }}</canvas>
 		</div>
 		<div class="col-xl-8">
 			<p>Apache:</p> <pre>{{serverInfoProviders.apache}}</pre>

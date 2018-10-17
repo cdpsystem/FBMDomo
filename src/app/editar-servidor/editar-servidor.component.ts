@@ -3,7 +3,8 @@ import { Router, ActivatedRoute, Params} from '@angular/router';
 import { ServidorService } from '../services/servidor.service';
 import { BackupService } from '../services/backup.service';
 import { Skiptable } from '../models/skiptable';
-declare var hola:any;
+import { Chart } from 'chart.js';
+
 @Component({
   selector: 'editar-servidor',
   templateUrl: './editar-servidor.component.html',
@@ -37,6 +38,8 @@ export class EditarServidorComponent implements OnInit {
   public opcion:string="";
   public contadorOperaciones = 0;
 
+  public chartSpace: any=null;
+
   constructor(
   	private _route: ActivatedRoute,
 	  private _router: Router,
@@ -51,7 +54,9 @@ export class EditarServidorComponent implements OnInit {
 
   ngOnInit() {
   	this._route.params.subscribe((params: Params) =>{	
+
       this.serverInfoProviders = {};
+      if (this.chartSpace) this.chartSpace.destroy(); //destroy prev chart instance
 		  this.getServer(params.id);
       this.loading = false;
 
@@ -212,7 +217,7 @@ export class EditarServidorComponent implements OnInit {
 
           //Comprobaciones de funciones por versiones
           if(parseFloat(this.FBMDomoVersion) >= 1.4){
-            this.getServerInfo() ;  
+            this.getServerInfo() ;
           }else{
             console.log("Evaluacion del servidor no soportado. Requiere Version >= 1.4 Beta")
           }
@@ -266,6 +271,38 @@ export class EditarServidorComponent implements OnInit {
     this._servidorService.getServerInfo(this.servidor).subscribe(
       response =>{
          this.serverInfoSpace = response.freeSpace;
+         console.log(this.serverInfoSpace)
+
+         let colorFree = 'rgb(238, 238, 238)';
+         let colorOcc;
+         if( parseInt(this.serverInfoSpace[2].slice(0,-1)) * 100 / parseInt(this.serverInfoSpace[1].slice(0,-1))  > 50){
+           colorOcc = 'rgb(255, 255, 128)';
+         }else if( parseInt(this.serverInfoSpace[2].slice(0,-1)) * 100 / parseInt(this.serverInfoSpace[1].slice(0,-1))  > 80  ){
+           colorOcc = 'rgb(255, 128, 128)';
+         }else{
+           colorOcc = 'rgb(128, 255, 128)';
+         }
+         this.chartSpace = new Chart('realtime',{
+           type: 'pie',
+           data: {
+             datasets: [{
+               data: [this.serverInfoSpace[2].slice(0,-1), this.serverInfoSpace[1].slice(0,-1)],
+               backgroundColor: [colorOcc, colorFree]            
+             }],
+             labels: ['Ocupado', 'Libre']
+            },
+            options: { 
+              tooltips: {
+                enabled: true,
+                mode: 'single',
+                callbacks: {
+                    label: function(tooltipItems, data) { 
+                        return data.datasets[0].data[tooltipItems.index] + ' GB';
+                    }
+                }
+              },
+            }
+          }); 
 
          //Filtrar por response de provider
          let providers = response.providers

@@ -80,7 +80,7 @@ try{
 						bckupLog.type="data"
 						comando = 'fbmdomo_backup2 --'+bckupLog.type+' '+server.database+' '+server.userDB+' '+server.passDB + ' ' + strSkipTables;
 					}
-
+					console.log(' ');
 					console.log("Comenzando backup automatica de " +server.alias + "( "+server.database+" ) de tipo " + bckupLog.type);
 
 					//Realizamos la conexion con el host y generamos la backup

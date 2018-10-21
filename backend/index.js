@@ -6,7 +6,7 @@ let app = require('./app');
 let port = 3700;
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/fbmdomo')
+mongoose.connect('mongodb://localhost:27017/fbmdomo',{useNewUrlParser: true } )
 	.then( ()=>{
 		//Conexion realizada correctamente
 		console.log("Conexion a FBMDOMO Mongo Database establecida con éxito ...");

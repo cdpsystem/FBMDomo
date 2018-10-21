@@ -1,5 +1,6 @@
 #!/bin/bash
-#Ejecutable para extraer las bases de datos segun parametros
+# Ejecutable para extraer las bases de datos segun parametros
+# http://newline.nadav.org/
 #$1 -> Parámetro
 #$2 -> Base de datos
 #$3 -> Usuario

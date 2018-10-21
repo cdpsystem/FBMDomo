@@ -10,7 +10,7 @@ let remotePath = "/usr/bin/";
 let controller = {
 	getVersion: (req,res)=>{
 		let ssh = new NodeSSH();
-
+		
 		//get Puerto
 		let serverIpArray = req.body.ip.split(":");
 		if(serverIpArray.length == 1){
@@ -21,7 +21,8 @@ let controller = {
 			host: serverIpArray[0], 
 			port: serverIpArray[1], 
 			username: req.body.userSSH,
-			password: req.body.passSSH 
+			password: req.body.passSSH,
+			readyTimeout : 99999
 		})
 			.then( 
 				()=>{
@@ -30,6 +31,13 @@ let controller = {
 							return res.status(200).send({version: result.stdout})
 						}
 					);
+				}
+			)
+			.catch(
+				(err)=>{
+					console.log("Error al obtener la versión");
+					console.log(err);
+					return res.status(500).send({err: err});
 				}
 			);
 	},
@@ -53,7 +61,6 @@ let controller = {
 		if(serverIpArray.length == 1){
 			serverIpArray[1] = 22;
 		}
-
 		ssh.connect({
 			host: serverIpArray[0], 
 			port: serverIpArray[1], 
@@ -62,20 +69,24 @@ let controller = {
 		})
 			.then( 
 				()=>{
+					console.log("Conectado");
 					ssh.putFile(scriptName,remotePath + scriptName)
 						.then(
-							function(){								
+							()=>{
+								console.log("Archivo Movido");
 								ssh.execCommand( "chmod +x " + remotePath+scriptName,{})
 									.then(
 										()=>{
 											return res.status(200).send({message: "FBMDomo Instalado / Reinstalado"});
 										},
 										error => {
+											console.log(error);
 											return res.status(500).send({message: "Error al aplicarle los permisos a FBMDomo",error: error});
 										}
 									);
 							},
 							error => {
+								console.log(error);
 								return res.status(500).send({message: "Error al actualizar FBMDomo",error: error});
 							}
 						);

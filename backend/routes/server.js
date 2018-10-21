@@ -8,8 +8,6 @@ let BackupController = require('../controllers/backup');
 let SkiptablesController = require('../controllers/skiptable');
 let FBMDomoController = require('../controllers/fbmdomo');
 
-//cronfile
-// let cron = require('../controllers/cron'); 
 
 let router = express.Router();
 

@@ -6,6 +6,7 @@ let moment = require('moment');
 let fs = require('fs');
 let recursive = require('recursive-readdir');
 let cron = require('node-cron');
+let Utils = require('../utils/CDP');
 
 let ServerModel = require('../models/server');
 let BackupLogModel = require('../models/backuplog');
@@ -13,16 +14,8 @@ let SkipTableModel = require('../models/skiptable');
 let AutoServerModel = require('../models/autoserver');
 
 
-async function asyncForEach(array, callback) {
-  for (let index = 0; index < array.length; index++) {
-    await callback(array[index], index, array)
-  }
-}
 
-
-
-
-let cronTask2 = cron.schedule('1 40 16 * * *', 
+let cronTask2 = cron.schedule('0 0 3 * * *', 
 	async() =>{
 
 //Conexion remota para la gestion de archivos y generación de backups
@@ -39,7 +32,7 @@ try{
 	let autoServerFound = await AutoServerModel.find({},{},{})
 	if ( autoServerFound.length > 0 ){
 		// autoServerFound.forEach(async(autoServerItem,index)=>{
-		asyncForEach(autoServerFound, async(autoServerItem,index)=>{
+		Utils.asyncForEach(autoServerFound, async(autoServerItem,index)=>{
 			let server = await ServerModel.findById(autoServerItem.target);
 			let bckupLog = new BackupLogModel();
 				//Rellenamos bckupLog con lo que tenemos por ahora

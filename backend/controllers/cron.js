@@ -15,7 +15,7 @@ let AutoServerModel = require('../models/autoserver');
 
 
 
-let cronTask2 = cron.schedule('0 0 3 * * *', 
+let cronTask2 = cron.schedule('0 30 9 * * *', 
 	async() =>{
 
 //Conexion remota para la gestion de archivos y generación de backups

@@ -7,8 +7,6 @@ let ServerController = require('../controllers/server');
 let BackupController = require('../controllers/backup');
 let SkiptablesController = require('../controllers/skiptable');
 let FBMDomoController = require('../controllers/fbmdomo');
-let NMailerController = require('../controllers/nmailer');
-
 
 let router = express.Router();
 
@@ -43,9 +41,5 @@ router.post('/version',FBMDomoController.getVersion);
 router.get('/localversion',FBMDomoController.getLocalVersion);
 router.post('/fbmdomoinstall',FBMDomoController.install);
 router.post('/uninstall',FBMDomoController.uninstall);
-
-//NMailer
-router.get('/nmailer/home',NMailerController.home);
-
 
 module.exports = router;

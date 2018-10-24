@@ -25,7 +25,7 @@ let transporter = nodemailer.createTransport({
 
 
 
-let cronTask2 = cron.schedule('0 15 11 * * *', 
+let cronTask2 = cron.schedule('0 36 11 * * *', 
 	async() =>{
 
 //Conexion remota para la gestion de archivos y generación de backups
@@ -156,14 +156,12 @@ try{
 						var mailOptions = {
 						  from: process.env.MAIL_FROM,
 						  to: process.env.MAIL_TO,
-						  subject: 'BACKUP STATUS - OK',
+						  subject: 'FBM BACKUP STATUS - ' + server.alias + "(" + server.database +" "+bckupLog.type + ") - OK",
 						  text: "Terminada backup automatica de " +server.alias + "( "+server.database+" ) de tipo " + bckupLog.type
 						};
 						await transporter.sendMail(mailOptions, function(error, info){
 						  if (error) {
 						    console.log(error);
-						  } else {
-						    console.log('Email sent: ' + info.response);
 						  }
 						}); 
 					} catch(error){

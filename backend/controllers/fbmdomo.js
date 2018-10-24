@@ -10,9 +10,7 @@ let remotePath = "/usr/bin/";
 let controller = {
 	getVersion: (req,res)=>{
 		let ssh = new NodeSSH();
-
-		console.log(req.body);
-
+		
 		//get Puerto
 		let serverIpArray = req.body.ip.split(":");
 		if(serverIpArray.length == 1){
@@ -23,15 +21,13 @@ let controller = {
 			host: serverIpArray[0], 
 			port: serverIpArray[1], 
 			username: req.body.userSSH,
-			password: req.body.passSSH ,
-			debug : console.log,
+			password: req.body.passSSH,
 			readyTimeout : 99999
 		})
 			.then( 
 				()=>{
 					ssh.execCommand(comando, { cwd:'${HOME}/fbmdomo/' }).then(
 						(result) => {
-							console.log(result);
 							return res.status(200).send({version: result.stdout})
 						}
 					);

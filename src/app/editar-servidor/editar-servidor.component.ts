@@ -275,9 +275,9 @@ export class EditarServidorComponent implements OnInit {
 
          let colorFree = 'rgb(238, 238, 238)';
          let colorOcc;
-         if( parseInt(this.serverInfoSpace[2].slice(0,-1)) * 100 / parseInt(this.serverInfoSpace[1].slice(0,-1))  > 50){
+         if( parseInt(this.serverInfoSpace[4].slice(0,-1)) > 50){
            colorOcc = 'rgb(255, 255, 128)';
-         }else if( parseInt(this.serverInfoSpace[2].slice(0,-1)) * 100 / parseInt(this.serverInfoSpace[1].slice(0,-1))  > 80  ){
+         }else if( parseInt(this.serverInfoSpace[4].slice(0,-1)) > 70  ){
            colorOcc = 'rgb(255, 128, 128)';
          }else{
            colorOcc = 'rgb(128, 255, 128)';
@@ -286,18 +286,22 @@ export class EditarServidorComponent implements OnInit {
            type: 'pie',
            data: {
              datasets: [{
-               data: [this.serverInfoSpace[2].slice(0,-1), this.serverInfoSpace[1].slice(0,-1)],
+               data: [this.serverInfoSpace[2].slice(0,-1), this.serverInfoSpace[3].slice(0,-1)],
                backgroundColor: [colorOcc, colorFree]            
              }],
-             labels: ['Ocupado', 'Libre']
+             labels: ['Ocupado', 'Disponible']
             },
             options: { 
+              title:{
+                display: true,
+                text: `Espacio total: ${this.serverInfoSpace[1]} (${this.serverInfoSpace[4]})`
+              },
               tooltips: {
                 enabled: true,
                 mode: 'single',
                 callbacks: {
                     label: function(tooltipItems, data) { 
-                        return data.datasets[0].data[tooltipItems.index] + ' GB';
+                        return `${data.datasets[0].data[tooltipItems.index]} GB`;
                     }
                 }
               },
@@ -320,17 +324,18 @@ export class EditarServidorComponent implements OnInit {
            case "debian":
              this.serverInfoProviders = {};
              providers.forEach((val,index)=>{
-               if ( val.substr(0,17) == "● apache2.service" ){
+               if ( val.substr(2,15) == "apache2.service" ){
                  this.serverInfoProviders.apache = providers[index+2];
                  return true;
                }
-               if ( val.substr(0,15) == "● nginx.service" ){
+               if ( val.substr(2,13) == "nginx.service" ){
+                 console.log(providers[index+2]);
                  this.serverInfoProviders.nginx = providers[index+2];
                  return true;
                }
              });
              if(!this.serverInfoProviders.nginx){this.serverInfoProviders.nginx = "No está instalado"}
-             if(!this.serverInfoProviders.apache){this.serverInfoProviders.nginx = "No está instalado"}
+             if(!this.serverInfoProviders.apache){this.serverInfoProviders.apache = "No está instalado"}
              
              break;
            

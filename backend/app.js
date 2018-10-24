@@ -12,6 +12,11 @@ let server_routes = require('./routes/server');
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
+
+//cronfile
+let cron = require('./controllers/cron'); 
+
+
 //CORS
 // Add headers
 app.use(function (req, res, next) {    

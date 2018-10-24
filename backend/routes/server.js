@@ -9,8 +9,6 @@ let SkiptablesController = require('../controllers/skiptable');
 let FBMDomoController = require('../controllers/fbmdomo');
 let SQLInfoController = require('../controllers/sqlviewer');
 
-//cronfile
-// let cron = require('../controllers/cron'); 
 
 let router = express.Router();
 

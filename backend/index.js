@@ -1,6 +1,8 @@
 'use strict'
 
 let mongoose = require('mongoose');
+
+require('dotenv').config()
 let app = require('./app');
 
 let port = 3700;

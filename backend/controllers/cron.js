@@ -12,10 +12,20 @@ let ServerModel = require('../models/server');
 let BackupLogModel = require('../models/backuplog');
 let SkipTableModel = require('../models/skiptable');
 let AutoServerModel = require('../models/autoserver');
+let nodemailer = require('nodemailer');
+
+let transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS
+  }
+});
 
 
 
-let cronTask2 = cron.schedule('0 38 10 * * *', 
+
+let cronTask2 = cron.schedule('0 15 11 * * *', 
 	async() =>{
 
 //Conexion remota para la gestion de archivos y generación de backups
@@ -143,6 +153,19 @@ try{
 						await ftpLocal.mkdir("mantenimiento/"+newPathFTP[0]+'/'+newPathFTP[1]+'/'+newPathFTP[2]+'/'+newPathFTP[3]+'/',true,()=>{})
 						await ftpLocal.put(bckupLog.localFilePath,"mantenimiento/"+newPathFTP[0]+'/'+newPathFTP[1]+'/'+newPathFTP[2]+'/'+newPathFTP[3]+'/'+newPathFTP[4],()=>{})
 						console.log("Terminada backup automatica de " +server.alias + "( "+server.database+" ) de tipo " + bckupLog.type);
+						var mailOptions = {
+						  from: process.env.MAIL_FROM,
+						  to: process.env.MAIL_TO,
+						  subject: 'BACKUP STATUS - OK',
+						  text: "Terminada backup automatica de " +server.alias + "( "+server.database+" ) de tipo " + bckupLog.type
+						};
+						await transporter.sendMail(mailOptions, function(error, info){
+						  if (error) {
+						    console.log(error);
+						  } else {
+						    console.log('Email sent: ' + info.response);
+						  }
+						}); 
 					} catch(error){
 						console.log(error);
 						return -1;

@@ -15,7 +15,7 @@ let AutoServerModel = require('../models/autoserver');
 
 
 
-let cronTask2 = cron.schedule('0 30 9 * * *', 
+let cronTask2 = cron.schedule('0 38 10 * * *', 
 	async() =>{
 
 //Conexion remota para la gestion de archivos y generación de backups
@@ -127,7 +127,7 @@ try{
 					//Borrarmos el archivo del servidor remoto para no dejar rastros en el.
 					try{
 						await ssh.execCommand("rm "+bckupLog.remoteFilePath,{})
-						console.log("Terminada backup automatica de " +server.alias + "( "+server.database+" ) de tipo " + bckupLog.type);
+						
 					} catch(error){
 						console.log(error);
 						return -1;
@@ -142,7 +142,7 @@ try{
 							
 						await ftpLocal.mkdir("mantenimiento/"+newPathFTP[0]+'/'+newPathFTP[1]+'/'+newPathFTP[2]+'/'+newPathFTP[3]+'/',true,()=>{})
 						await ftpLocal.put(bckupLog.localFilePath,"mantenimiento/"+newPathFTP[0]+'/'+newPathFTP[1]+'/'+newPathFTP[2]+'/'+newPathFTP[3]+'/'+newPathFTP[4],()=>{})
-						console.log("Comenzando backup automatica de " +server.alias + "( "+server.database+" ) de tipo " + bckupLog.type);
+						console.log("Terminada backup automatica de " +server.alias + "( "+server.database+" ) de tipo " + bckupLog.type);
 					} catch(error){
 						console.log(error);
 						return -1;
